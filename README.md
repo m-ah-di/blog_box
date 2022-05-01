@@ -8,3 +8,6 @@ I was intended to build something like blog hosting service. Here, user can writ
 
 ## Home page
 ![Home page - BlogBox](https://github.com/m-ah-di/blog_box/blob/master/my_site_blogbox_Screenshot%202022-05-01%20185420.jpg?raw=true 'Home page')
+
+## Sign Up page
+![Sign Up _ BlogBox](https://github.com/m-ah-di/blog_box/blob/master/blog_box_login_page.jpg?raw=true 'Sign Up page')
