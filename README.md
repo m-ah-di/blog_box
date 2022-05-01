@@ -7,4 +7,4 @@ I was intended to build something like blog hosting service. Here, user can writ
 -Front-end Framework:  MDB 5.0
 
 
-[image][https://github.com/m-ah-di/blog_box/blob/master/my_site_blogbox_Screenshot%202022-05-01%20185420.jpg?raw=true]
+![Home page - BlogBox](https://github.com/m-ah-di/blog_box/blob/master/my_site_blogbox_Screenshot%202022-05-01%20185420.jpg?raw=true 'Home page')
