@@ -1,0 +1,56 @@
+{% load custom_template_tags %}
+
+
+<div class="list-group list-group-light list-group">
+    <div class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2">
+            <a class="text-dark" href="{% url 'blogs:article_page' article.id %}">
+
+                    <span class="text-muted">
+                {% if this_year %}
+        {{ article.creation_date|date:'M d' }}
+        {% else %}
+        {{ article.creation_date|date:'M d, Y' }}
+        {% endif %}
+
+            </span>
+
+                <div class="fw-bolder fs-4 d-none d-md-block">
+
+                    {{ article.title|truncatechars:73 }}
+                </div>
+
+                <div class="fw-bolder fs-6 me-2 d-block d-md-none">
+                    {% if not article.thumbnail_url %}
+                    {{ article.title|truncatechars:60 }}
+                    {% else %}
+                    {{ article.title|truncatechars:38 }}
+                    {% endif %}
+                </div>
+
+
+                <span class="pb-2 fw-light d-none d-sm-block">
+{% if article.thumbnail_url %}
+        {{ article.text|striptags|format_text|truncatechars:144 }}
+{% else %}
+            {{ article.text|striptags|truncatechars:288|format_text }}
+{% endif %}
+    </span>
+
+                <span class="text-muted fs-6">
+        Last edited {{ article.update_time|timesince|show_till:',' }} ago ·
+
+            {{ article.text|readtime }}
+
+
+        </span>
+
+            </a></div>
+
+    </div>
+
+
+</div>
+
+
+

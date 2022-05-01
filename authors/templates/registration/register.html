@@ -1,0 +1,69 @@
+{% extends 'blogs/base/base.html' %}
+{% block body %}
+
+<a href="{% url 'blogs:home' %}">
+    <h1 class="text-dark text-center fs-bold mt-5">BlogBox</h1>
+</a>
+<div class="col-sm-5 p-4 mx-auto">
+    <div class="card">
+        <article class="card-body">
+            <h5 class="card-title mb-4 mt-1">Create an account to start writing.</h5>
+            <form action="{% url 'users:register' %}" method="post">
+
+                {% csrf_token %}
+
+                <div class="form-outline mb-4">
+                    <input autofocus
+                           class="form-control"
+                           id="id_username"
+                           maxlength="150"
+                           name="username"
+                           required
+                           type="text"/>
+                    <label class="form-label" for="id_username">Username</label>
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <input class="form-control"
+                           id="id_password1"
+                           name="password1"
+                           required
+                           type="password"/>
+                    <label class="form-label" for="id_password1">New Password</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input class="form-control" id="id_password2" name="password2" required type="password"/>
+                    <label class="form-label" for="id_password2">Confirm Password</label>
+                </div>
+
+
+                <!-- Submit button -->
+                <button class="btn btn-dark btn-block mb-4" name="submit" type="submit">Sign Up</button>
+                <input name="next" type="hidden" value="{{ next }}"/>
+                {% if sign_up_form.errors %}
+                <h5 class="fw-bold text-justify"><i class="fa-solid fa-circle-exclamation"></i> Issue detected. Possible
+                    solutions:</h5>
+                <ul class="mb-4">
+                    <li> Username can contain Letters, digits, and @/./+/-/_ only with a length of fewer than 150
+                        characters.
+                    </li>
+                    <li> New Password and Confirm Password must be same.</li>
+                    <li>Password can’t be too similar to your username.</li>
+                    <li>Password must contain at least 8 characters.</li>
+                    <li>Password can’t be a commonly used password.</li>
+                    <li>Password can’t be entirely numeric.</li>
+                </ul>
+
+
+                {% endif %}
+                <!-- Register buttons -->
+                <div class="text-center">
+                    <p>Already have an account? <a href="{% url 'users:login' %}">Log in</a></p>
+
+                </div>
+            </form>
+        </article>
+    </div>
+</div>
+{% endblock body %}

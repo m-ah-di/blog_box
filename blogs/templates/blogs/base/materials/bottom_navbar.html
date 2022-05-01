@@ -1,0 +1,16 @@
+<nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light d-block d-sm-none">
+    <div class="container-fluid">
+        <a class="nav-link text-dark ripple" data-mdb-placement="top"
+           data-mdb-toggle="tooltip" href="{% url 'blogs:home' %}" title="Home"><i class="fa-solid fa-house"></i></a>
+
+        <!-- Icons -->
+        <a class="nav-link text-dark ripple" data-mdb-placement="top"
+           data-mdb-toggle="tooltip" href="{% url 'blogs:write_article' %}" title="Write"><i
+                class="fa-solid fa-edit"></i></a>
+
+        <a class="nav-link text-dark ripple" data-mdb-placement="top"
+           data-mdb-toggle="tooltip" href="{% url 'blogs:your_articles' %}" title="Yours"><i
+                class="fa-solid fa-clipboard-list"></i></a>
+
+    </div>
+</nav>

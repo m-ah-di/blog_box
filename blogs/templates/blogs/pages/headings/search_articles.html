@@ -1,0 +1,50 @@
+{% load custom_template_tags %}
+<div class="p-4 bg-light d-block d-md-none">
+    <form action="{% url 'blogs:search_articles' %}" class="justify-content-center w-auto" method="post">
+        {% csrf_token %}
+        <div class="form-outline">
+
+            <input aria-label="Search" class="form-control text-dark"
+                   id="form1"
+                   name="query"
+                   placeholder="Search"
+                   type="search"
+                   value="{{ query_text }}"/>
+
+        </div>
+    </form>
+</div>
+{% if request.method == 'POST' %}
+{% if search_results %}
+<div class="p-1">
+    <h1 class="fw-bolder m-4">Results for
+        <span class="text-dark">{{ query_text|truncatechars:15 }}</span>
+    </h1></div>
+{% endif %}
+{% else%}
+<div class="p-4 d-block d-md-none">
+    <h2 class="fw-bold text-dark">Latest Articles</h2>
+    {% for articles in latest_articles|slice:5 %}
+    {% if articles.author != request.user %}
+    <ul class="list-group list-group-light">
+
+        <li class="list-group-item d-flex justify-content-between align-items-start border-bottom ripple">
+            <div class="ms-2 me-auto">
+                <span class="text-dark fw-normal">@{{ articles.author }}</span>
+
+                <a class="text-dark" href="{% url 'blogs:article_page' articles.id %}">
+                    <div class="fw-bolder fs-6">{{ articles.title|truncatechars:37 }}</div>
+                </a>
+                {% for tag in articles.article_tags.all|slice:':1' %}
+                <span class="badge rounded-pill badge-light mt-3 fs-6 fw-normal">{{ tag|title }}</span>
+                {% endfor %}
+                {{ articles.text|readtime }}
+            </div>
+
+        </li>
+    </ul>
+    {% endif %}
+    {% endfor %}
+
+    {% endif %}
+</div>

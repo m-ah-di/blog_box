@@ -1,0 +1,49 @@
+{% load custom_template_tags %}
+
+<style>
+  .nav-tabs .nav-item .nav-link.active {
+  color: #343a40;
+  border-color: #343a40;
+  background: transparent;
+}
+
+
+</style>
+
+<div class="ps-4 pe-4 pt-4 bg-light">
+    <h1 class="fw-bolder text-dark">Your Articles
+        <a class="btn btn-dark btn-rounded float-end"
+           href="{% url 'blogs:write_article' %}"
+           role="button">Write an Article</a>
+    </h1>
+
+    <!-- Tabs navs -->
+    <ul class="nav nav-tabs mb-3 mt-4" id="your_articles" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a
+                    aria-controls="unpublished"
+                    aria-selected="true"
+                    class="nav-link active"
+                    data-mdb-toggle="tab"
+                    href="#unpublished"
+                    id="unpublished_articles"
+                    role="tab"
+            >Unpublished</a
+            >
+        </li>
+        <li class="nav-item" role="presentation">
+            <a
+                    aria-controls="published"
+                    aria-selected="false"
+                    class="nav-link"
+                    data-mdb-toggle="tab"
+                    href="#published"
+                    id="published_articles"
+                    role="tab"
+            >Published</a
+            >
+        </li>
+
+    </ul>
+    <!-- Tabs navs -->
+</div>

@@ -1,0 +1,109 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="nav-link text-dark ripple d-block d-sm-none"
+           onclick="history.back ()"><i class="fa fa-arrow-left"></i></a>
+        <a class="navbar-brand ms-3 d-none d-sm-block"
+           href="{% url 'blogs:home' %}"><strong>BlogBox</strong></a>
+
+        <!-- Icons -->
+
+        <span class="nav-link text-dark">
+            {% if writing_form %}
+            Post Article
+            {% else %}
+            Save Changes
+            {% endif %}
+            as <strong>@{{ user.username }}</strong></span>
+
+        <div class="dropdown me-3">
+            <a
+                    aria-expanded="false"
+                    class="text-reset dropdown-toggle hidden-arrow"
+                    data-mdb-toggle="dropdown"
+                    href="#"
+                    id="navbarDropdownMenuLink"
+                    role="button"
+            >
+                <i class="fa fa-ellipsis"></i>
+            </a>
+            <ul
+                    aria-labelledby="navbarDropdownMenuLink"
+                    class="dropdown-menu dropdown-menu-end"
+            >
+
+                <li>
+                    <a class="dropdown-item"
+                       href="{% url 'blogs:your_articles' %}">Your Articles</a>
+                </li>
+
+                {% if writing_form %}
+                <li>
+                    <hr class="dropdown-divider"/>
+                </li>
+
+                {% else %}
+
+                <li>
+                    <a class="dropdown-item text-secondary"
+                       href="{% url 'blogs:article_page' article.id %}">Back to this article</a>
+                </li>
+                <li><a class="dropdown-item text"
+                       href="{% url 'blogs:write_article' %}">Write new article</a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider"/>
+                </li>
+                <li>
+                    <a class="dropdown-item text-danger"
+                       data-mdb-target="#DeleteConfirmation"
+                       data-mdb-toggle="modal" href="{% url 'blogs:delete_article' article.id %}">Delete this
+                        article</a>
+                </li>
+
+                {% endif %}
+                <li>
+                    <a class="dropdown-item"
+                       href="https://bit.ly/3vq0dCv" target="_blank">Learn to write article</a>
+                </li>
+                <li>
+                    <a class="dropdown-item text"
+                       href="{% url 'users:logout' %}">Log Out @{{ user.username }}</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+{% if not writing_form %}
+<div aria-hidden="true"
+     aria-labelledby="DeleteConfirmationLabel"
+     class="modal fade"
+     data-mdb-backdrop="static"
+     id="DeleteConfirmation"
+     tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark" id="DeleteConfirmationLabel">
+                    Confirm Delete
+                </h5>
+                <button aria-label="Close" class="btn-close" data-mdb-dismiss="modal"
+                        type="button"></button>
+            </div>
+            <div class="modal-body text-center">
+                Deleted articles are gone forever.
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light btn-rounded"
+                        data-mdb-dismiss="modal"
+                        type="button">Cancel
+                </button>
+                <a class="btn btn-danger btn-rounded"
+                   href="{% url 'blogs:delete_article' article.id %}">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

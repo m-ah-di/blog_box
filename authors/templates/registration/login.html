@@ -1,0 +1,46 @@
+{% extends 'blogs/base/base.html' %}
+{% block body %}
+
+
+<a href="{% url 'blogs:home' %}">
+    <h1 class="text-dark text-center fs-bold mt-5">BlogBox</h1>
+</a>
+<div class="col-sm-5 p-4 mx-auto">
+    <div class="card">
+        <article class="card-body">
+            <h4 class="card-title mb-4 mt-1">Log in to post articles.</h4>
+            <form action="{% url 'users:login' %}" method="post">
+                {% csrf_token %}
+
+
+                <div class="form-outline mb-4">
+                    <input class="form-control" id="form2Example1" name="username" type="text"/>
+                    <label class="form-label" for="form2Example1">Username</label>
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <input class="form-control" id="form2Example2" name="password" type="password"/>
+                    <label class="form-label" for="form2Example2">Password</label>
+                </div>
+
+
+                <!-- Submit button -->
+                <button class="btn btn-dark btn-block mb-4" name="submit" type="submit">Log In</button>
+                <input name="next" type="hidden" value="{{ next }}"/>
+                {% if form.errors %}
+                <p class="text-danger text-center">
+                    Your username and password didn't match. Please try again.
+                </p>
+                {% endif %}
+                <!-- Register buttons -->
+                <div class="text-center">
+                    <p>No account? <a href="{% url 'users:register' %}">Create one</a></p>
+
+                </div>
+            </form>
+        </article>
+    </div>
+</div>
+
+{% endblock body %}

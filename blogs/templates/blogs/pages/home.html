@@ -1,0 +1,18 @@
+{% extends 'blogs/base/base.html' %}
+
+{% block p_title %}BlogBox{% endblock p_title %}
+{% block body %}
+
+{% include 'blogs/base/header.html' %}
+{% include 'blogs/pages/headings/home.html' %}
+
+
+<div class="ps-4 pe-4">
+    {% for article in articles %}
+    {% if article.author != request.user %}
+    {% include 'blogs/dashboard/articles_list/main.html' %}
+    {% endif %}
+    {% endfor %}
+</div>
+
+{% endblock body %}

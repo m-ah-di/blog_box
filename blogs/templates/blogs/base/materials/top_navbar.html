@@ -1,0 +1,100 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" xmlns="http://www.w3.org/1999/html">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><strong>BlogBox</strong></a>
+
+        <ul class="navbar-nav d-flex flex-row">
+            <li class="d-flex align-items-center me-3 d-none d-md-block">
+                <form action="{% url 'blogs:search_articles' %}" class="d-flex input-group w-auto" method="post">
+                    <input name="csrfmiddlewaretoken" type="hidden" value="{{ csrf_token }}"/>
+                    <input
+                            aria-label="Search"
+                            class="form-control text-dark"
+                            name="query"
+                            placeholder="Search"
+                            required
+                            style="min-width: 300px;"
+                            type="search"
+                            value="{{ query_text }}"
+                    />
+                    <button
+                            class="btn btn-dark"
+                            data-mdb-placement="bottom"
+                            data-mdb-ripple-color="light"
+                            data-mdb-toggle="tooltip" title="Search" type="submit"
+                    >
+                        <i class="fas fa-search"></i>
+                    </button>
+
+                </form>
+            </li>
+
+
+            <!-- Right elements -->
+
+            <li class="d-flex align-items-center">
+                <!-- Icon -->
+
+                <a class="nav-link text-dark ripple me-3 d-block d-md-none" data-mdb-placement="bottom"
+                   data-mdb-toggle="tooltip" href="{% url 'blogs:search_articles' %}" title="Search">
+                    <i class="fas fa-search"></i>
+                </a>
+
+
+                <a class="nav-link me-3 d-none d-sm-block" data-mdb-placement="bottom"
+                   data-mdb-toggle="tooltip" href="{% url 'blogs:home' %}" title="Home">
+                    <i class="fa-solid fa-house"></i>
+                </a>
+                <a class="nav-link me-3 d-none d-sm-block" data-mdb-placement="bottom"
+                   data-mdb-toggle="tooltip" href="{% url 'blogs:write_article' %}" title="Write">
+                    <i class="fa-solid fa-edit"></i>
+                </a>
+                <a class="nav-link me-3 d-none d-sm-block" data-mdb-placement="bottom"
+                   data-mdb-toggle="tooltip" href="{% url 'blogs:your_articles' %}" title="Your Articles">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                </a>
+
+                {% if user.is_authenticated %}
+                <!-- User Log Out -->
+                <div class="dropdown">
+                    <a
+                            aria-expanded="false"
+                            class="nav-link dropdown-toggle hidden-arrow"
+                            data-mdb-toggle="dropdown"
+                            href="#"
+                            id="navbarDropdownMenuLink"
+                            role="button"
+                    >
+                        <i class="fa-solid fa-circle-user"></i>
+                    </a>
+                    <ul
+                            aria-labelledby="navbarDropdownMenuLink"
+                            class="dropdown-menu dropdown-menu-end"
+                    >
+                        <li>
+                            <a class="dropdown-item" href="{% url 'users:logout' %}">Log Out @{{ user.username }}</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </li>
+        </ul>
+
+        {% else %}
+        <!-- Icons -->
+
+        <a class="btn btn-outline-dark d-none d-md-block" href="{% url 'users:login' %}">
+            <i class="fas fa-user"></i> Sign In
+        </a>
+        <a class="nav-link text-dark ripple d-block d-md-none" href="{% url 'users:login' %}">
+            <i class="fa-solid fa-circle-user"></i>
+        </a>
+
+
+        <!-- Icon dropdown -->
+        {% endif %}
+
+    </div>
+</nav>
+
+

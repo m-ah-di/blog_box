@@ -1,0 +1,36 @@
+{% extends 'blogs/base/base.html' %}
+{% block p_title %}Write Article{% endblock p_title %}
+{% block body %}
+{% include 'blogs/base/materials/editor_navbar.html' %}
+<style>
+    .errorlist{
+    font-weight:bold;
+  color: black;
+  list-style:none;
+    }
+
+    .helptext{
+        opacity:75%;
+        text-align: justify;
+        font-size:14px;
+    }
+
+
+
+</style>
+
+<div class="p-3 bg-light text-center">
+    <form action="{% url 'blogs:write_article' %}" method="post">
+        {% csrf_token %}
+        {{ writing_form.media }}
+        {{ writing_form.as_p }}
+        <div class="d-grid m-3 d-block d-sm-none">
+            <button class="btn btn-success btn-rounded" name="submit">Post</button>
+        </div>
+        <div class="m-3 d-none d-sm-block">
+            <button class="btn btn-success btn-rounded" name="submit">Post</button>
+        </div>
+    </form>
+</div>
+
+{% endblock body %}

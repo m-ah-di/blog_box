@@ -1,0 +1,27 @@
+{% extends 'blogs/base/base.html' %}
+{% load custom_template_tags %}
+{% block p_title %}410 Deleted or Unpublished | BlogBox{% endblock p_title %}
+{% block body %}
+{% include 'blogs/base/header.html' %}
+<style>
+    body{
+     background-color:#f8f9fa;
+    }
+
+
+</style>
+<div class="p-5 text-center">
+    <h1 class="mb-3">NO ARTICLE</h1>
+
+    <ins>ERROR 410.</ins>
+    This article has been deleted or unpublished.
+    <br>
+
+    <a href="{% url 'blogs:home' %}">Read
+    </a>published articles or
+    <a href="{% url 'blogs:write_article' %}"> Publish
+    </a>your own.
+
+</div>
+
+{% endblock body %}

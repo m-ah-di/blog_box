@@ -1,0 +1,28 @@
+{% extends 'blogs/base/base.html' %}
+{% block p_title %}Search on BlogBox{% endblock p_title %}
+{% block body %}
+{% include 'blogs/base/header.html' %}
+{% include 'blogs/pages/headings/search_articles.html' %}
+
+
+{% if request.method == 'POST' %}
+<div class="ps-4 pe-4">
+    {% for article in search_results %}
+    {% include 'blogs/dashboard/articles_list/main.html' %}
+
+    {% empty %}
+    <ul class="p-5 pe-3 list-unstyled">
+        <li class="fs-5 fw-bold"><span class="text-dark">No result.</span> Please:</li>
+        <li>Make sure all words are spelled correctly.</li>
+        <li>
+            Try different keywords.
+        </li>
+        <li>Try more commonly used keywords.</li>
+        <li>Make sure all the words are consistent if there is a sentence.</li>
+    </ul>
+</div>
+{% endfor %}
+
+
+{% endif %}
+{% endblock body %}

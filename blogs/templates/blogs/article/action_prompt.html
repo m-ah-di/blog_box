@@ -1,0 +1,54 @@
+<div aria-hidden="true"
+     aria-labelledby="DeleteConfirmationLabel"
+     class="modal fade"
+     data-mdb-backdrop="static"
+     id="DeleteConfirmation"
+     tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark" id="DeleteConfirmationLabel">
+                    Confirm Delete
+                </h5>
+                <button aria-label="Close" class="btn-close" data-mdb-dismiss="modal" type="button"></button>
+            </div>
+            <div class="modal-body text-center">
+                Deleted articles are gone forever.
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light btn-rounded"
+                        data-mdb-dismiss="modal"
+                        type="button">Cancel
+                </button>
+                <a class="btn btn-danger btn-rounded"
+                   href="{% url 'blogs:delete_article' the_article.id %}">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="dropdown">
+    <a
+            aria-expanded="false"
+            class="text-reset dropdown-toggle hidden-arrow"
+            data-mdb-toggle="dropdown"
+            href="#"
+            id="ArticleActionPrompt"
+            role="button">
+        <i class="fa fa-ellipsis"></i>
+    </a>
+    <ul
+            aria-labelledby="ArticleActionPrompt"
+            class="dropdown-menu dropdown-menu-end">
+        <li>
+            <a class="dropdown-item"
+               href="{% url 'blogs:edit_article' the_article.id %}">Edit article</a>
+        </li>
+        <li>
+            <a class="dropdown-item text-danger"
+               data-mdb-target="#DeleteConfirmation" data-mdb-toggle="modal">Delete article</a>
+        </li>
+
+    </ul>
+</div>

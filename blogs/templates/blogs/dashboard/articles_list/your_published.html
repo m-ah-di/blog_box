@@ -1,0 +1,31 @@
+<!--    TAB 2-->
+
+<div aria-labelledby="published" class="tab-pane fade" id="published" role="tabpanel">
+    {% for article in public_articles %}
+    <br>
+    <h3>
+        <a href="{% url 'blogs:article_page' article.id %}"> {{ article.title|truncatechars:72 }}</a>
+    </h3>
+
+    <p>
+        {{ article.text|striptags|truncatechars:140|format_text }}
+    </p>
+
+    <br>
+
+    <aside>
+        Posted {{ article.creation_date|timesince|show_till:',' }} ago --
+        {{ article.text|readtime }}&emsp;
+    </aside>
+    <aside>
+        Last edited {{ article.update_time|timesince|show_till:',' }} ago --
+        {{ article.text|readtime }}&emsp;
+    </aside>
+    <br>
+
+
+    {% endfor %}
+</div>
+
+
+<!-- Tabs content -->

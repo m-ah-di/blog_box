@@ -1,0 +1,67 @@
+{% load custom_template_tags %}
+
+
+<div class="list-group list-group-light list-group">
+    <div class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2">
+            <a class="text-dark" href="{% url 'blogs:article_page' article.id %}">
+                <span class="text-dark fw-normal">@{{ article.author }}</span> ·
+                <span class="text-muted">
+                {% if this_year %}
+        {{ article.creation_date|date:'M d' }}
+        {% else %}
+        {{ article.creation_date|date:'M d, Y' }}
+        {% endif %}
+            </span>
+
+                <div class="fw-bolder fs-4 d-none d-md-block">
+
+                    {{ article.title|truncatechars:73 }}
+                </div>
+
+                <div class="fw-bolder fs-6 me-2 d-block d-md-none">
+                    {% if not article.thumbnail_url %}
+                    {{ article.title|truncatechars:60 }}
+                    {% else %}
+                    {{ article.title|truncatechars:38 }}
+                    {% endif %}
+                </div>
+
+
+                <span class="pe-5 fw-light d-none d-sm-block">
+{% if article.thumbnail_url %}
+        {{ article.text|striptags|format_text|truncatechars:144 }}
+{% else %}
+            {{ article.text|striptags|truncatechars:288|format_text }}
+{% endif %}
+    </span>
+
+                {% for tag in article.article_tags.all|slice:':1' %}
+                <span class="badge rounded-pill badge-light mt-3 fs-6 fw-normal">{{ tag|title }}</span>
+                {% endfor %}
+                {{ article.text|readtime }}
+
+            </a></div>
+        {% if article.thumbnail_url %}
+        <img alt="{{ article.title|truncatechars:72 }}" class="d-none d-md-block mt-4 float-end"
+             src="
+            {{ article.thumbnail_url }}
+            " style="width:250px; height: 168px">
+        <div class="d-none d-sm-block">
+            <img alt="{{ article.title|truncatechars:72 }}" class="d-block d-md-none mt-4 float-end"
+                 src="
+            {{ article.thumbnail_url }}
+            " style="width:187px; height: 126px">
+        </div>
+        <img alt="{{ article.title|truncatechars:72 }}" class="d-block d-sm-none mt-4 float-end"
+             src="
+            {{ article.thumbnail_url }}
+            " style="width:125px; height: 84px">
+        {% endif %}
+    </div>
+
+
+</div>
+
+
+

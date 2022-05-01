@@ -1,0 +1,67 @@
+{% extends 'blogs/base/base.html' %}
+{% load custom_template_tags %}
+{% block p_title %}Your Articles{% endblock p_title %}
+{% block body %}
+
+{% include 'blogs/base/header.html' %}
+{% include 'blogs/pages/headings/your_articles.html' %}
+
+
+<!-- Tabs content -->
+<div class="tab-content" id="unpublished_articles">
+
+    <!--    TAB 1-->
+
+    <div
+            aria-labelledby="unpublished_articles"
+            class="tab-pane fade show active"
+            id="unpublished"
+            role="tabpanel"
+    >
+        <div class="ps-4 pe-4">
+            {% for article in private_articles %}
+
+            {% include 'blogs/dashboard/articles_list/your_articles.html' %}
+
+            {% empty %}
+            <div class="p-5 text-center">
+                <p>You have no unpublished articles.</p>
+                <p><a class="text-dark" href="{% url 'blogs:write_article' %}"> Write</a>
+                    an article or
+                    <a class="text-dark" href="{% url 'blogs:home' %}">read</a>
+                    other people's published articles.
+                </p>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+    <!--    TAB 2-->
+
+    <div aria-labelledby="published" class="tab-pane fade" id="published" role="tabpanel">
+        <div class="ps-4 pe-4">
+            {% for article in public_articles %}
+
+            {% include 'blogs/dashboard/articles_list/your_articles.html' %}
+
+            {% empty %}
+
+            <div class="p-5 text-center">
+                <p>You haven't published any articles.</p>
+                <p><a class="text-dark" href="{% url 'blogs:write_article' %}"> Publish</a>
+                    an article or
+                    <a class="text-dark" href="{% url 'blogs:home' %}">read</a>
+                    other people's published articles.
+                </p>
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+{% endblock body %}

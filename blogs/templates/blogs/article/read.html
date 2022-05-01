@@ -1,0 +1,117 @@
+{% extends 'blogs/base/base.html' %}
+{% load custom_template_tags %}
+{% block p_title %}{{ the_article.title }} | by @{{ the_article.author }} | BlogBox{% endblock p_title %}
+{% block body %}
+
+{% include 'blogs/base/header.html' %}
+<style>
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}
+
+
+
+</style>
+
+<div class="p-5 pt-3">
+
+    <ul class="list-group list-group-light">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <img alt="@{{ the_article.author }}"
+                     class="rounded-circle" src="https://publicdomainvectors.org/photos/Happy-Penguin-Avatar.png"
+                     style="width: 45px; height: 45px"/>
+                <div class="ms-3 me-5">
+                    <p class="fw-bold mb-1">@{{ the_article.author }}</p>
+                    <p class="text-muted mb-0">
+                        {% if the_article.visibility == 'public' %}
+                        {% if this_year %}
+                        {{ the_article.creation_date|date:'M d' }}
+                        {% else %}
+                        {{ the_article.creation_date|date:'M d, Y' }}
+                        {% endif %}
+                        {% else %}
+                        <span class="badge rounded-pill badge-info fw-normal">Unpublished</span>
+                        {% endif %}
+                        · {{ the_article.text|readtime }}</p>
+
+                </div>
+            </div>
+            {% if not the_article.author == request.user %}
+            {% if the_article.visibility == 'public' %}
+            {% include 'blogs/article/share.html' %}
+            {% endif %}
+            {% else %}
+
+            {% include 'blogs/article/action_prompt.html' %}
+
+            {% endif %}
+
+        </li>
+    </ul>
+
+
+    {% if the_article.thumbnail_url %}
+    <div class="bg-image mb-4">
+        <img
+                alt="{{ the_article.title }}"
+                class="img-fluid"
+                src="{{ the_article.thumbnail_url }}"
+                style="width:100%;height:auto;"
+        />
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+            <div class="d-flex justify-content-center align-items-center h-100 w-auto">
+                <h1 class="text-white text-center fw-bolder m-5">{{ the_article.title }}</h1>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <h1 class="text-dark fw-bolder mb-4">{{ the_article.title }}</h1>
+    {% endif %}
+
+
+    {{ the_article.text|style_article|safe }}
+
+
+    {% for tag in the_article.article_tags.all|slice:':3' %}
+    <span class="badge rounded-pill badge-dark m-1 fs-6 fw-normal">
+             {{ tag|title }}</span>
+    {% endfor %}
+
+    {% if the_article.visibility == 'public' %}
+    <div class="float-end m-1">
+        {% include 'blogs/article/share.html' %}
+        {% endif %}
+    </div>
+</div>
+
+
+<h3 class="m-3 ms-5 fw-bolder text-dark">
+    More from author
+</h3>
+
+<div class="ps-5 pe-5 row d-flex justify-content-center">
+    {% for article in articles %}
+    {% if article.id != the_article.id %}
+    {% include 'blogs/dashboard/articles_list/main.html' %}
+    {% endif %}
+    {% endfor %}
+</div>
+
+
+{% endblock body %}
